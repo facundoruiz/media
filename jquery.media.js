@@ -19,6 +19,7 @@
  *	- Silverlight
  *	- Windows Media Player
  *	- iframe
+ *	- HTML5 tag
  *
  * Supported Media Formats:
  *	 Any types supported by the above players, such as:
@@ -212,7 +213,12 @@ $.fn.media.defaults.players = {
 	silverlight: {
 		name:  'silverlight',
 		types: 'xaml'
-	}
+	},
+	video: {
+		name:  'video',
+		title: 'Video HTML5',
+		types: 'mp4,webm,ogg'
+	},
 };
 
 //
@@ -436,6 +442,14 @@ function generate(el, opts, player) {
 		if (opts.height)
 			o.attr('height', opts.height);
 		o.css('backgroundColor', o.bgColor);
+	}else if (player == 'video') {
+		
+		a = ['<video  width="' + opts.width + '" height="' + opts.height +'" controls'];
+		a.push('>');
+		a.push('<source src="' + opts.src + '">');
+		// Alternate msj HTML
+		a.push('Your browser does not support the video tag.');
+		a.push('</vi'+'deo'+'>');
 	}
 	else if (lameIE) {
 		a = ['<object width="' + opts.width + '" height="' + opts.height + '" '];
